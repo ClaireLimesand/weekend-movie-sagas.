@@ -14,6 +14,7 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('FETCH_GENRES', fetchGenres);
     yield takeEvery('GET_DETAILS', getDetails);
 }
 
@@ -30,20 +31,33 @@ function* fetchAllMovies() {
         
 }
 
-function* getDetails(action) {
+function* fetchGenres(action) {
+    // get all genres from the DB
     try {
-        const response = yield axios({
-            method: 'GET',
-            url: '/api/favorite',
-            data: action.payload
-        });
-        yield put({
-            type: 'ADD_FAVORITES',
-            payload: response.data
-        })
-    } catch (err) {
-        console.error('in getDetails error', err);
+        const genres = yield axios.get('/api/genre');
+        console.log('get all:', genres.data);
+        yield put({ type: 'SET_GENRES', payload: genres.data });
+
+    } catch {
+        console.log('get all error');
     }
+}
+
+function* getDetails(action) {
+    console.log('in getDetails')
+//     try {
+//         const response = yield axios({
+//             method: 'GET',
+//             url: '/api/genre',
+//             data: action.payload
+//         });
+//         yield put({
+    //         type: '',
+    //         payload: response.data
+    //     })
+    // } catch (err) {
+    //     console.error('in getDetails error', err);
+    // }
 }
 
 // Create sagaMiddleware

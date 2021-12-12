@@ -16,10 +16,10 @@ function MovieList() {
     //then sends user to /details
     const displayDetails = (event) => {
         console.log('in displayDetials');
-        dispatch ({
-            type:'GET_DETAILS',
-            payload: event.target.id
-        });
+        // dispatch ({
+        //     type:'GET_DETAILS',
+        //     payload: event.target.value
+        // });
         history.push('/details');
     }
 
