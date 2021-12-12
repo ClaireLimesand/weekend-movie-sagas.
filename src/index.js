@@ -14,6 +14,7 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('GET_DETAILS', getDetails);
 }
 
 function* fetchAllMovies() {
@@ -27,6 +28,22 @@ function* fetchAllMovies() {
         console.log('get all error');
     }
         
+}
+
+function* getDetails(action) {
+    try {
+        const response = yield axios({
+            method: 'GET',
+            url: '/api/favorite',
+            data: action.payload
+        });
+        yield put({
+            type: 'ADD_FAVORITES',
+            payload: response.data
+        })
+    } catch (err) {
+        console.error('in getDetails error', err);
+    }
 }
 
 // Create sagaMiddleware

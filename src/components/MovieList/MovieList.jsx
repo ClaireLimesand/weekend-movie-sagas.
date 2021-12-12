@@ -13,9 +13,13 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    //sends user to /details
-    const displayDetails = () => {
+    //then sends user to /details
+    const displayDetails = (event) => {
         console.log('in displayDetials');
+        dispatch ({
+            type:'GET_DETAILS',
+            payload: event.target.id
+        });
         history.push('/details');
     }
 
