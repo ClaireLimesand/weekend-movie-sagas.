@@ -14,12 +14,12 @@ function MovieList() {
     }, []);
 
     //then sends user to /details
-    const displayDetails = (event) => {
-        console.log('in displayDetials');
-        // dispatch ({
-        //     type:'GET_DETAILS',
-        //     payload: event.target.value
-        // });
+    const displayDetails = (movie) => {
+        console.log('in displayDetials', movie);
+        dispatch ({
+            type:'GET_DETAILS',
+            payload: movie
+        });
         history.push('/details');
     }
 
@@ -32,7 +32,7 @@ function MovieList() {
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
                             {/* make movie poster click trigger displayDetails function */}
-                            <img onClick={displayDetails} src={movie.poster} alt={movie.title}/>
+                            <img onClick={()=>{displayDetails(movie)}} src={movie.poster} alt={movie.title}/>
                         </div>
                     );
                 })}

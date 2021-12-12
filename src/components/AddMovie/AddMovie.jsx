@@ -68,16 +68,17 @@ return(
             />
             <input 
                 type="text"
-                placeholder="Description"
-                onChange={handleDescriptionInput}
-                required
-            />
-            <input 
-                type="text"
                 placeholder="Poster"
                 onChange={handlePosterInput}
                 required
             />
+            <textarea 
+                type="text"
+                placeholder="Description"
+                onChange={handleDescriptionInput}
+                required
+            >
+            </textarea>
             <select value={movieInput.genreId} 
                 onChange={handleGenreInput}>
                         <option disabled value='0'>
