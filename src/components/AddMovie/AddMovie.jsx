@@ -6,45 +6,48 @@ function AddMovies() {
 
 const dispatch = useDispatch();
 const genres = useSelector(store => store.genres);
-console.log('yay genres!', genres)
-    
-const [movieInput, setMovieInput] = useState({title:'', description:'', poster:'', genre: ''});
+
+const [movieInput, setMovieInput] = useState({title:'', description:'', poster:'', genreId: 0});
 
 useEffect(() => {
-    getGenres();
+    dispatch({ type: 'FETCH_GENRES' });
 }, []);
 
-const getGenres = () => {
-    dispatch ({
-    type: 'FETCH_GENRES'
-    })
-};
+// console.log('yay genres!', genres)
 
-const handeTitleInput = (event) => {
+const handleTitleInput = (event) => {
     setMovieInput({
         ...movieInput,
         title: event.target.value
     });
 }
 
-const handeDescriptionInput = (event) => {
+const handleDescriptionInput = (event) => {
     setMovieInput({
         ...movieInput,
         description: event.target.value
     });
 }
 
-const handePosterInput = (event) => {
+const handlePosterInput = (event) => {
     setMovieInput({
         ...movieInput,
         poster: event.target.value
     });
 }
 
-const handeGenreInput = (event) => {
+const handleGenreInput = (event) => {
     setMovieInput({
         ...movieInput,
-        genre: event.target.value
+        genreId: event.target.value
+    });
+}
+
+const handleAddMovieClick = () => {
+    console.log('new movie input:', movieInput);
+    dispatch({ 
+        type: 'ADD_MOVIE', 
+        payload: { movieInput }
     });
 }
 
@@ -54,28 +57,35 @@ return(
             <input 
                 type="text"
                 placeholder="Title"
-                // value={title}
-                onChange={handeTitleInput}
+                onChange={handleTitleInput}
                 required
             />
             <input 
                 type="text"
                 placeholder="Description"
-                // value={description}
-                onChange={handeDescriptionInput}
+                onChange={handleDescriptionInput}
                 required
             />
             <input 
                 type="text"
                 placeholder="Poster"
-                // value={poster}
-                onChange={handePosterInput}
+                onChange={handlePosterInput}
                 required
             />
-            <select>
-                <option>    </option>
-                <option>    </option>
+            <select value={movieInput.genreId} 
+                onChange={handleGenreInput}>
+                        <option disabled value='0'>
+                            Genres
+                        </option>
+                    {genres.map((genre) =>  {
+                        return  (
+                        <option key={genre.id} value={genre.id}>
+                            {genre.name}
+                        </option>
+                        )
+                    })}
             </select>
+            <button onClick={handleAddMovieClick}>Add Movie</button>
         </form>
     </div>
     )

@@ -10,11 +10,13 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import AddMovies from './components/AddMovie/AddMovie';
 
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchGenres);
+    yield takeEvery('ADD_MOVIE', addMovie);
     yield takeEvery('GET_DETAILS', getDetails);
 }
 
@@ -43,21 +45,17 @@ function* fetchGenres(action) {
     }
 }
 
+function* addMovie(action) {
+    try {
+        yield axios.post('/api/movie', action.payload);
+        yield put ({type: 'FETCH_MOVIES'});
+    } catch(err) {
+        console.log(err);
+    }
+}
+
 function* getDetails(action) {
     console.log('in getDetails')
-//     try {
-//         const response = yield axios({
-//             method: 'GET',
-//             url: '/api/genre',
-//             data: action.payload
-//         });
-//         yield put({
-    //         type: '',
-    //         payload: response.data
-    //     })
-    // } catch (err) {
-    //     console.error('in getDetails error', err);
-    // }
 }
 
 // Create sagaMiddleware
