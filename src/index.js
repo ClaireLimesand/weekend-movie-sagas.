@@ -17,7 +17,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchGenres);
     yield takeEvery('ADD_MOVIE', addMovie);
-    yield takeEvery('GET_DETAILS', getDetails);
+    yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails);
 }
 
 function* fetchAllMovies() {
@@ -54,8 +54,17 @@ function* addMovie(action) {
     }
 }
 
-function* getDetails(action) {
-    console.log('in getDetails')
+function* fetchMovieDetails(action) {
+    try {
+        console.log('in FETCH_MOVIE_DETAILS', action.payload)
+        const movieId = yield axios.get(`/api/movie/${action.payload}`)
+        yield put({
+            type: 'SET_DETAILS',
+            payload: movieId.data
+        });
+    } catch(err) {
+        console.log(err);
+    }
 }
 
 // Create sagaMiddleware
@@ -83,21 +92,14 @@ const genres = (state = [], action) => {
 
 const details = (state = [], action) => {
     switch (action.type) {
-        case 'GET_DETAILS':
+        case 'SET_DETAILS':
+            console.log('in setDetails', action.payload)
             return action.payload;
         default:
             return state;
     }
 }
 
-const id = (state = [], action) => {
-    switch (action.type) {
-        case 'GET_ID':
-            return action.payload;
-        default:
-            return state;
-    }
-}
 
 // Create one store that all components can use
 const storeInstance = createStore(
@@ -105,7 +107,6 @@ const storeInstance = createStore(
         movies,
         genres,
         details,
-        id
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

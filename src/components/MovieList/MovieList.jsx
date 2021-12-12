@@ -15,14 +15,13 @@ function MovieList() {
 
     //then sends user to /details
     const displayDetails = (movie) => {
-        console.log('in displayDetials', movie);
-        console.log('in displayDetials ID', movie.id);
+        // console.log('in displayDetials ID', movie.id);
+        // dispatch ({
+        //     type:'GET_DETAILS',
+        //     payload: movie
+        // });
         dispatch ({
-            type:'GET_DETAILS',
-            payload: movie
-        });
-        dispatch ({
-            type:'GET_ID',
+            type:'FETCH_MOVIE_DETAILS',
             payload: movie.id
         });
         history.push('/details');
