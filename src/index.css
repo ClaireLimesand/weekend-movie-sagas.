@@ -5,6 +5,9 @@ body {
 }
 
 img {
-
   margin: 1.5em;
+}
+
+ul {
+  list-style-type: none;
 }
