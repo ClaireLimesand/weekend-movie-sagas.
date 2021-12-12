@@ -11,9 +11,9 @@ function App() {
       <h1>The Movies Saga!</h1>
       <Router>  
       <ul>
-          <li>
+          {/* <li>
             <Link to="/">Home</Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/addmovie">Add A Movie</Link>
           </li>

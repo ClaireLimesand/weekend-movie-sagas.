@@ -54,4 +54,6 @@ router.post('/', (req, res) => {
   })
 })
 
+// make /:id inside of route 
+
 module.exports = router;

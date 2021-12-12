@@ -9,14 +9,14 @@ const history = useHistory();
 const dispatch = useDispatch();
 const genres = useSelector(store => store.genres);
 
+//
 const [movieInput, setMovieInput] = useState({title:'', description:'', poster:'', genreId: 0});
 
 useEffect(() => {
     dispatch({ type: 'FETCH_GENRES' });
 }, []);
 
-// console.log('yay genres!', genres)
-
+// 
 const handleTitleInput = (event) => {
     setMovieInput({
         ...movieInput,
