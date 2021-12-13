@@ -17,6 +17,8 @@ function MovieDetails() {
 
     return (
         <div>
+            {details.length !=0 ?
+            <>
             <h2>{details[0].title}</h2>
             <img src={details[0].poster}/>
             <p>{details[0].description}</p>
@@ -26,6 +28,10 @@ function MovieDetails() {
                     </p>
                 ))}
             <button onClick={handleHomeClick}>Home</button>
+            </>
+            :
+            <></>
+            }
         </div>
     )
 }
