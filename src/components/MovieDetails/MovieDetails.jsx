@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
 
 function MovieDetails() {
@@ -9,11 +8,7 @@ function MovieDetails() {
     
     // access details reducer
     const details = useSelector((store) => store.details);
-
-
-    useEffect(() => {
-
-    });
+    console.log('details', details)
 
     // takes user to home page 
     const handleHomeClick = () => {
@@ -22,9 +17,14 @@ function MovieDetails() {
 
     return (
         <div>
-            <h2>{details.title}</h2>
-            <img src={details.poster}/>
-            <h4>{details.description}</h4>
+            <h2>{details[0].title}</h2>
+            <img src={details[0].poster}/>
+            <p>{details[0].description}</p>
+                {details.map(genre => (
+                    <p>
+                        {genre.name}
+                    </p>
+                ))}
             <button onClick={handleHomeClick}>Home</button>
         </div>
     )

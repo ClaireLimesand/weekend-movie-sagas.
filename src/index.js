@@ -91,6 +91,7 @@ const genres = (state = [], action) => {
 }
 
 const details = (state = [], action) => {
+    console.log('why isnt it working!', action.payload)
     switch (action.type) {
         case 'SET_DETAILS':
             console.log('in setDetails', action.payload)

@@ -15,11 +15,6 @@ function MovieList() {
 
     //then sends user to /details
     const displayDetails = (movie) => {
-        // console.log('in displayDetials ID', movie.id);
-        // dispatch ({
-        //     type:'GET_DETAILS',
-        //     payload: movie
-        // });
         dispatch ({
             type:'FETCH_MOVIE_DETAILS',
             payload: movie.id
